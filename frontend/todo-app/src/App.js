@@ -11,7 +11,7 @@ function App() {
       Hello React
       {/* <FirstComponent></FirstComponent>
       <SecondComponent/> */}
-      <Counter></Counter>
+      <Counter/>
     </div>
   );
 }
