@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import FirstComponent, {SecondComponent} from './components/examples/FirstComponent.jsx'
+import FirstComponent from './components/examples/FirstComponent.jsx'
+import SecondComponent from './components/examples/SecondComponent.jsx'
 import logo from './logo.svg';
 import './App.css';
 
