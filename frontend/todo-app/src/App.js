@@ -5,11 +5,12 @@ import Counter from './components/counter/Counter.jsx'
 import ToDoApp from './components/todo/ToDoApp.jsx'
 import logo from './logo.svg';
 import './App.css';
+import './bootstrap.css';
 
 function App() {
   return (
     <div className="App">
-      Hello React
+      
       {/* <FirstComponent></FirstComponent>
       <SecondComponent/>
       <Counter/> */}
