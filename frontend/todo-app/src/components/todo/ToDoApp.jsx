@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
+import HeaderComponent from './HeaderComponent'
+import AuthenticatedRoute from './AuthenticatedRoute'
+
 class ToDoApp extends Component {
     render() {
         return (
@@ -10,9 +13,9 @@ class ToDoApp extends Component {
                     <Switch>
                         <Route path="/" exact component={LoginComponent}></Route>
                         <Route path="/login" component={LoginComponent}></Route>
-                        <Route path="/welcome/:name" component={WelcomeComponent}></Route>
-                        <Route path="/todos" component={ListTodosComponent}></Route>
-                        <Route path="/logout" component={LogoutComponent}></Route>
+                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}></AuthenticatedRoute>
+                        <AuthenticatedRoute path="/todos" component={ListTodosComponent}></AuthenticatedRoute>
+                        <AuthenticatedRoute path="/logout" component={LogoutComponent}></AuthenticatedRoute>
                         <Route component={ErrorComponent}/>
                     </Switch>
                     <FooterComponent/>
@@ -121,7 +124,7 @@ class LoginComponent extends Component {
     }
 
     loginClicked(event) {
-        if(this.state.username === 'sample' && this.state.password === 'password') {
+        if(this.state.username === 'a' && this.state.password === 's') {
             AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
             this.props.history.push(`/welcome/${this.state.username}`);
             this.setState({showSuccess : true});
@@ -148,27 +151,6 @@ function ShowSuccess(props) {
     return null;
 }
 
-class HeaderComponent extends Component {
-    render() {
-        const userLogStatus = AuthenticationService.isUserLoggedIn();
-        console.log(userLogStatus);
-        return (
-            <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a className="navbar-brand" href="https://in28minutes.com">in28Minutes</a></div>
-                    <ul className="navbar-nav">
-                        {userLogStatus && <li><Link className="nav-link" to="/welcome/sample ">Home</Link></li>}
-                        {userLogStatus && <li><Link className="nav-link" to="/todos">ToDos</Link></li>}
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!userLogStatus && <li><Link className="nav-link" to="/login">Login</Link></li>}
-                        {userLogStatus && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
-                    </ul>
-                </nav>
-            </header>
-        )
-    }
-}
 
 class FooterComponent extends Component {
     render() {
