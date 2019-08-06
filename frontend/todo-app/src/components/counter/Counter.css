@@ -1,4 +1,4 @@
-button {
+/* button {
     background-color: blueviolet;
     font-size: 16px;
     padding : 15px 30px;
@@ -19,6 +19,7 @@ button {
 body {
     padding : 15px 30px;
 }
+*/
 
 .footer {
     position : absolute;
@@ -26,4 +27,4 @@ body {
     width : 100%;
     bottom: 0px;
     background-color: #222222
-}
+} 

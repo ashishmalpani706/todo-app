@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Link, withRouter, Redirect } from 'react-router-dom'
+import {Redirect } from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
 import {Route} from 'react-router-dom'
 

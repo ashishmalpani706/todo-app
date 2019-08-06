@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import '../../api/todo/TodoDataService.js'
+import TodoDataService from '../../api/todo/TodoDataService.js';
+import AuthenticationService from './AuthenticationService.js'
 
 class ListTodosComponent extends Component {
     
@@ -6,12 +9,22 @@ class ListTodosComponent extends Component {
         super(props)
 
         this.state = {
-            todos : [
-                {id : 1, description : 'Learn React', done:false, targetDate: new Date()},
-                {id : 2, description : 'Learn Redux', done:false, targetDate: new Date()},
-                {id : 3, description : 'Learn Spring Boot', done:false, targetDate: new Date()}
-            ]
+            todos : []
         }
+        this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
+    }
+
+    componentDidMount() {
+        let user = AuthenticationService.getLoggedInUser();
+        TodoDataService.retreiveAllTodos(user)
+        .then (
+            response => this.setState({todos : response.data})
+        )
+    }
+
+    deleteTodoClicked(id) {
+        let user = AuthenticationService.getLoggedInUser();
+        console.log(user + " " + id);
     }
 
     render() {
@@ -25,6 +38,7 @@ class ListTodosComponent extends Component {
                                 <th>Description</th>
                                 <th>Is Completed</th>
                                 <th>Target Date</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,6 +49,7 @@ class ListTodosComponent extends Component {
                                             <td>{todos.description}</td>
                                             <td>{todos.done.toString()}</td>
                                             <td>{todos.targetDate.toString()}</td>
+                                            <td><button className="btn btn-warning" onClick={this.deleteTodoClicked(todos.id)}>Delete</button></td>
                                         </tr>
                                 )
                             }

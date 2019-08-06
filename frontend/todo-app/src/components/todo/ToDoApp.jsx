@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom'
-import AuthenticationService from './AuthenticationService.js'
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
 import HeaderComponent from './HeaderComponent'
 import AuthenticatedRoute from './AuthenticatedRoute'
 import LoginComponent from './LoginComponent'
