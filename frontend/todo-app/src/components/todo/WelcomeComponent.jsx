@@ -19,9 +19,6 @@ class WelcomeComponent extends Component {
                 <div className="container">
                     Welcome {this.props.match.params.name}. Visit your <Link to="/todos">ToDos</Link>
                 </div>
-                <div className="container">
-                    Click to get custom welcome text <button className="btn btn-success" onClick={this.getText}>Click</button>
-                </div>
                 <div> {this.state.welcomeMessage} </div>
             </>
         )
