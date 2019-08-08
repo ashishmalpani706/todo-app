@@ -1,10 +1,19 @@
 import axios from 'axios'
 
 class AuthenticationService {
-    registerSuccessfulLogin(username, password) {
-        let basicAuthHeader = 'Basic ' + window. btoa(username + ':' + password)
-        sessionStorage.setItem('authenticatedUser',username);
-        this.setupAxiosInterceptors(basicAuthHeader);
+
+    executeBasicAuthenticationService(user, password) {
+        return axios.get('http://localhost:8080/basicauth',
+            {headers: {authorization:this.basicAuthenticationToken(user,password)}})
+    }
+
+    basicAuthenticationToken(user, password) {
+        return 'Basic ' + window. btoa(user + ':' + password)
+    }
+
+    registerSuccessfulLogin(user, password) {
+        sessionStorage.setItem('authenticatedUser',user);
+        this.setupAxiosInterceptors(this.basicAuthenticationToken(user, password));
     }
 
     logout() {
