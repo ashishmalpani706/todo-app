@@ -26,7 +26,6 @@ public class TodoHardcodedService {
 		Todo todo = findById(id);
 		if (todo == null) return null;
 		todos.remove(todo);
-		idCounter -= 1;
 		return todo;
 	}
 
@@ -42,6 +41,7 @@ public class TodoHardcodedService {
 	public Todo save(Todo todo) {
 		if(todo.getId() <= 0) {
 			todo.setId(++idCounter);
+//			System.out.println(idCounter);
 			todos.add(todo);
 		}
 		else {

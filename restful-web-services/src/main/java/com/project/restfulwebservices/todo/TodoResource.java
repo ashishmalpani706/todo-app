@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4204")
+@CrossOrigin(origins="http://localhost:4200")
 public class TodoResource {
-
+	
 	@Autowired
 	private TodoHardcodedService todoService;
 

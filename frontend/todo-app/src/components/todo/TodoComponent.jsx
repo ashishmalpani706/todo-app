@@ -7,9 +7,10 @@ import AuthenticationService from './AuthenticationService.js';
 class TodoComponent extends Component {
     constructor(props) {
         super(props)
+        //console.log(typeof this.props.match.params.id);
         this.state = {
-            id : this.props.match.params.id,
-            description : 'Learn Forms',
+            id : parseInt(this.props.match.params.id),
+            description : '',
             targetDate : moment(new Date()).format('YYYY-MM-DD')
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -17,6 +18,11 @@ class TodoComponent extends Component {
     }
 
     componentDidMount() {
+        
+        if(this.state.id === -1) {
+            return;
+        }
+
         let user = AuthenticationService.getLoggedInUser()
         TodoDataService.retreiveTodo(user, this.state.id)
           .then(response => this.setState({description : response.data.description,
@@ -24,13 +30,24 @@ class TodoComponent extends Component {
     }
     
     onSubmit(values) {
-        TodoDataService.updateTodo(AuthenticationService.getLoggedInUser(), this.state.id, {
+        let user = AuthenticationService.getLoggedInUser()
+        
+        let todo = {
             id: this.state.id,
             description: values.description,
             targetDate: values.targetDate
-        }).then(() => this.props.history.push('/todos'))
+        }
+
+        if (this.state.id === -1) {
+            // console.log("Never running")
+            TodoDataService.createTodo(user, todo)
+                .then(() => this.props.history.push('/todos'))
+        } else {
+            TodoDataService.updateTodo(user, this.state.id, todo)
+                .then(() => this.props.history.push('/todos'))
+        }
         console.log(values);
-    }
+}
 
     validate(values) {
         let errors = {}
